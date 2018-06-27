@@ -1,48 +1,50 @@
 language: node_js
 node_js:
-  - 9
-  - 8
+- 9
+- 8
 branches:
   except:
-    - gh-pages
-    - l10n_develop
+  - gh-pages
+  - l10n_develop
 addons:
   apt:
     packages:
-      - xvfb
+    - xvfb
   chrome: stable
   code_climate:
     repo_token:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
 env:
   global:
-    - 'DISPLAY=:99'
-    - 'PATH=$HOME/.local/bin:$PATH'
+  - DISPLAY=:99
+  - PATH=$HOME/.local/bin:$PATH
+  - secure: UkPJwBrDPM8eijXZXdQ27iNHUyRBTpQFzLcBsoExskaaVQ1HylBbScIySAev3jQCSLmJH8fjQLFDQsG46hBfVZyARV55POCxdqgrwyInNwXc384yiVpxSMcY/XXHn7dHN/2c3qlyY4Ujs6dKG+EzOafLY42Bahn3qMQievdPVMU=
+  - secure: hRpJW9t6/72rBlY3DlOB7bXZaeh7YYCtYTROaWQyZtr8mS369iQYK+nuwjdj4U/pyriP8D4aEbJ5NCne8ykHQ3kuJ0s2oKzm+8VbjLCUfkmZZESGdqtJ9LB0zwGt9BaBRC4LHyYZKB7kBwkPJVncdix/tiH5Xto5BSvBLI7bXAw=
 before_install:
-  - 'rm -rf node_modules'
-  - 'pip install --user awscli'
-  - 'mkdir -p ~/$TRAVIS_BUILD_NUMBER'
-  - 'aws s3 sync s3://juice-shop-ci-storage/$TRAVIS_BUILD_NUMBER ~/$TRAVIS_BUILD_NUMBER'
+- rm -rf node_modules
+- pip install --user awscli
+- mkdir -p ~/$TRAVIS_BUILD_NUMBER
+- aws s3 sync s3://juice-shop-ci-storage/$TRAVIS_BUILD_NUMBER ~/$TRAVIS_BUILD_NUMBER
 after_install:
-  - 'cp -a . ~/$TRAVIS_BUILD_NUMBER'
-  - 'aws s3 sync ~/$TRAVIS_BUILD_NUMBER s3://juice-shop-ci-storage/$TRAVIS_BUILD_NUMBER'
+- cp -a . ~/$TRAVIS_BUILD_NUMBER
+- aws s3 sync ~/$TRAVIS_BUILD_NUMBER s3://juice-shop-ci-storage/$TRAVIS_BUILD_NUMBER
 before_script:
-  - 'npm install grunt-cli -g'
-  - 'sh -e /etc/init.d/xvfb start'
-  - 'sleep 3'
+- npm install grunt-cli -g
+- sh -e /etc/init.d/xvfb start
+- sleep 3
 script:
-  - 'travis_wait npm test && npm run frisby && NODE_ENV=ctf npm run protractor'
+- travis_wait npm test && npm run frisby && NODE_ENV=ctf npm run protractor
 after_success:
-  - './node_modules/.bin/lcov-result-merger ''build/reports/coverage/*/lcov.info'' ''build/reports/coverage/lcov_merged.info'''
-  - './node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info'
-  - 'aws s3 rm --recursive s3://juice-shop-ci-storage/$TRAVIS_BUILD_NUMBER'
+- "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/*/lcov.info' 'build/reports/coverage/lcov_merged.info'"
+- "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
+- aws s3 rm --recursive s3://juice-shop-ci-storage/$TRAVIS_BUILD_NUMBER
 notifications:
   email:
-    - secure: ADLqaNm7lR8sgCkSz7eWtWdm8zZ9OsbkcQAi2nm7hQPWAkTWPfr9qeOBh39Z3PZvkgDdlUpNZc/uPlcEGEILznJRF3HlQjWrWksNNtY3xaRc01B4uXlDbODjttb6v9mOqkwUqRfQLeerOqNynNSkT129+mz4FANn0+oucZ3EuQc=
-    - secure: HhhSoqY87yd8Hkt+cfXk9XXDJeWViYQoPq8f7SJofkwSWtxfOS9GNbOUehZJDqjBMARoGi3SJBImRbisnwfMcEhKpSZs2S4Osdwk2Ayy0h8V/O+qHhiEuJq1mPbAWrYNGQerz16Ec4SbX6hPnAEle2SUwjbPUnfRRCROsJqfm0o=
+  - secure: ADLqaNm7lR8sgCkSz7eWtWdm8zZ9OsbkcQAi2nm7hQPWAkTWPfr9qeOBh39Z3PZvkgDdlUpNZc/uPlcEGEILznJRF3HlQjWrWksNNtY3xaRc01B4uXlDbODjttb6v9mOqkwUqRfQLeerOqNynNSkT129+mz4FANn0+oucZ3EuQc=
+  - secure: HhhSoqY87yd8Hkt+cfXk9XXDJeWViYQoPq8f7SJofkwSWtxfOS9GNbOUehZJDqjBMARoGi3SJBImRbisnwfMcEhKpSZs2S4Osdwk2Ayy0h8V/O+qHhiEuJq1mPbAWrYNGQerz16Ec4SbX6hPnAEle2SUwjbPUnfRRCROsJqfm0o=
   webhooks:
     urls:
-      - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
+    - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
     on_success: always
     on_failure: always
     on_start: never
@@ -54,9 +56,9 @@ notifications:
     on_start: never
     on_pull_requests: false
 before_deploy:
-  - 'rm -rf node_modules'
-  - 'npm install --production'
-  - 'grunt package'
+- rm -rf node_modules
+- npm install --production
+- grunt package
 deploy:
 - provider: heroku
   api_key:
@@ -75,7 +77,7 @@ deploy:
   skip_cleanup: true
   file_glob: true
   draft: true
-  tag_name: $TRAVIS_TAG
+  tag_name: "$TRAVIS_TAG"
   on:
     repo: bkimminich/juice-shop
     tags: true
