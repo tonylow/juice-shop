@@ -17,8 +17,15 @@ addons:
 env:
   global:
     - 'DISPLAY=:99'
+    - 'PATH=$HOME/.local/bin:$PATH'
 before_install:
   - 'rm -rf node_modules'
+  - 'pip install --user awscli'
+  - 'mkdir -p ~/$TRAVIS_BUILD_NUMBER'
+  - 'aws s3 sync s3://juice-shop-ci-storage/$TRAVIS_BUILD_NUMBER ~/$TRAVIS_BUILD_NUMBER'
+after_install:
+  - 'cp -a . ~/$TRAVIS_BUILD_NUMBER'
+  - 'aws s3 sync ~/$TRAVIS_BUILD_NUMBER s3://juice-shop-ci-storage/$TRAVIS_BUILD_NUMBER'
 before_script:
   - 'npm install grunt-cli -g'
   - 'sh -e /etc/init.d/xvfb start'
@@ -28,6 +35,7 @@ script:
 after_success:
   - './node_modules/.bin/lcov-result-merger ''build/reports/coverage/*/lcov.info'' ''build/reports/coverage/lcov_merged.info'''
   - './node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info'
+  - 'aws s3 rm --recursive s3://juice-shop-ci-storage/$TRAVIS_BUILD_NUMBER'
 notifications:
   email:
     - secure: ADLqaNm7lR8sgCkSz7eWtWdm8zZ9OsbkcQAi2nm7hQPWAkTWPfr9qeOBh39Z3PZvkgDdlUpNZc/uPlcEGEILznJRF3HlQjWrWksNNtY3xaRc01B4uXlDbODjttb6v9mOqkwUqRfQLeerOqNynNSkT129+mz4FANn0+oucZ3EuQc=
