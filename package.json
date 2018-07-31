@@ -190,6 +190,7 @@
     ]
   },
   "jest": {
+    "testEnvironment": "node",
     "globalSetup": "./test/apiTestsSetup.js",
     "globalTeardown": "./test/apiTestsTeardown.js",
     "testMatch": [
