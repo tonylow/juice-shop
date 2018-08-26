@@ -4,7 +4,7 @@ const config = require('config')
 
 const christmasProduct = config.get('products').filter(({useForChristmasSpecialChallenge}) => useForChristmasSpecialChallenge)[0]
 
-const API_URL = 'http://localhost:3000/api'
+const API_URL = 'http://localhost3000/api'
 const REST_URL = 'http://localhost:3000/rest'
 
 describe('/rest/product/search', () => {

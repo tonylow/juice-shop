@@ -1,7 +1,7 @@
 angular.module('juiceShop').factory('ProductService', ['$http', '$q', function ($http, $q) {
   'use strict'
 
-  var host = '/api/Products'
+  var host = 'http://18.209.19.213:3000/api/Products'
 
   function find (params) {
     var products = $q.defer()

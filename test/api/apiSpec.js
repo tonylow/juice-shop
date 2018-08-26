@@ -1,6 +1,6 @@
 const frisby = require('frisby')
 
-const API_URL = 'http://localhost:3000/api'
+const API_URL = 'http://1localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
 
 describe('/api', () => {
