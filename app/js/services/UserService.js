@@ -77,7 +77,8 @@ angular.module('juiceShop').factory('UserService', ['$http', '$q', function ($ht
 
   function oauthLogin (accessToken) {
     var oauthResponse = $q.defer()
-    $http.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + accessToken).then(function (response) {
+    //$http.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + accessToken).then(function (response) {
+      $http.get('http://tonylow_sg-eval-test.apigee.net/staticInfo').then(function (response) {
       console.log('done: ' + response.data)
       oauthResponse.resolve(response.data)
     }).catch(function (response) {

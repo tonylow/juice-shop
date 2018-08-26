@@ -37,10 +37,12 @@ angular.module('juiceShop').controller('LoginController', [
     }
 
     $scope.googleLogin = function () {
-      $window.location.replace(oauthProviderUrl + '?client_id=' + clientId + '&response_type=token&scope=email&redirect_uri=' + authorizedRedirectURIs[redirectUri])
+      //$window.location.replace(oauthProviderUrl + '?client_id=' + clientId + '&response_type=token&scope=email&redirect_uri=' + authorizedRedirectURIs[redirectUri])
+      $window.location.replace(oauthProviderUrl + '?apikey=JdsPzsGPo6cesSq2MrbN8A4AwSaG4FKc' + '&redirect_uri=https://tonylow_sg-eval-test.apigee.net/web/callback' +'&scope=order&state=123')
     }
 
-    var oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
+    //var oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
+    var oauthProviderUrl =  'https://tonylow_sg-eval-test.apigee.net/loginapp/login'
     var clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
 
     var authorizedRedirectURIs = {
