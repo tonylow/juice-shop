@@ -4,6 +4,8 @@ You can use the credentials below to login to Elasticsearch or Kibana. Make sure
 Username
 elastic
 Password
+
+
 gdTZ34FqaLW6aGcqRWUtaBAT
 Cloud ID
 DemoShop:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyQ0YjJlNDg0YTQyMzU0Y2Y1OGZlYzExNzQ3Yjc1NDE4MCRiYWEzZjE2MjBmMDI0YmVkYjVmNGUyMTc4ZDAwYjYxZQ==
@@ -17,3 +19,6 @@ https://baa3f1620f024bedb5f4e2178d00b61e.us-east-1.aws.found.io:9243/login?next=
 sumologic
 
 https://collectors.au.sumologic.com/receiver/v1/http/ZaVnC4dhaV2wujMOFEsmXxKgS2m1w13i5ut0caiSql0zh_GGDJpBDmetaLYnh5eBShu3hoEA7fQXQva5q4JfYJFjd1c3aDDC9fGDYAge2HhZwgyjJPX8yw==
+
+
+curl -v -X POST -T /path/to/your/logfile.log https://collectors.au.sumologic.com/receiver/v1/http/ZaVnC4dhaV2wujMOFEsmXxKgS2m1w13i5ut0caiSql0zh_GGDJpBDmetaLYnh5eBShu3hoEA7fQXQva5q4JfYJFjd1c3aDDC9fGDYAge2HhZwgyjJPX8yw==
