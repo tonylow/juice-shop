@@ -1,7 +1,7 @@
 angular.module('juiceShop').factory('ProductService', ['$http', '$q', function ($http, $q) {
   'use strict'
 
-  var host = 'http://18.209.19.213:3000/api/Products'
+  var host = 'http://tonylow_sg-eval-test.apigee.net/api/Products'
 
   function find (params) {
     var products = $q.defer()
@@ -17,7 +17,9 @@ angular.module('juiceShop').factory('ProductService', ['$http', '$q', function (
 
   function get (id) {
     var product = $q.defer()
-    $http.get(host + '/' + id + '?d=' + encodeURIComponent(new Date().toDateString())).then(function (response) {
+    var target = host  + '?apikey=MYBmAz28OynJCUPJrRGrPCbjXUZyi0o3&id='+ id
+   // $http.get(target.trim() ).then(function (response) {    
+    $http.get(host + '/' + id + '?apikey=MYBmAz28OynJCUPJrRGrPCbjXUZyi0o3&d=' + encodeURIComponent(new Date().toDateString())).then(function (response) {
       product.resolve(response.data.data)
     }).catch(function (response) {
       product.reject(response.data)

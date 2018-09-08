@@ -72,6 +72,8 @@ app.locals.captchaBypassReqTimes = []
 app.options('*', cors())
 app.use(cors())
 
+
+
 /* Security middleware */
 app.use(helmet.noSniff())
 app.use(helmet.frameguard())
@@ -138,11 +140,13 @@ app.use('/rest/user/reset-password', new RateLimit({ windowMs: 5 * 60 * 1000, ma
 /* Checks on JWT in Authorization header */
 app.use(verify.jwtChallenges())
 /* Baskets: Unauthorized users are not allowed to access baskets */
-app.use('/rest/basket', insecurity.isAuthorized())
-/* BasketItems: API only accessible for authenticated users */
-app.use('/api/BasketItems', insecurity.isAuthorized())
-app.use('/api/BasketItems/:id', insecurity.isAuthorized())
-/* Feedbacks: GET allowed for feedback carousel, POST allowed in order to provide feedback without being logged in */
+
+
+// app.use('/rest/basket', insecurity.isAuthorized())
+// /* BasketItems: API only accessible for authenticated users */
+// app.use('/api/BasketItems', insecurity.isAuthorized())
+// app.use('/api/BasketItems/:id', insecurity.isAuthorized())
+// /* Feedbacks: GET allowed for feedback carousel, POST allowed in order to provide feedback without being logged in */
 app.use('/api/Feedbacks/:id', insecurity.isAuthorized())
 /* Users: Only POST is allowed in order to register a new user */
 app.get('/api/Users', insecurity.isAuthorized())
@@ -173,8 +177,8 @@ app.get('/api/SecurityAnswers', insecurity.denyAll())
 app.use('/api/SecurityAnswers/:id', insecurity.denyAll())
 /* REST API */
 app.use('/rest/user/authentication-details', insecurity.isAuthorized())
-app.use('/rest/basket/:id', insecurity.isAuthorized())
-app.use('/rest/basket/:id/order', insecurity.isAuthorized())
+// app.use('/rest/basket/:id', insecurity.isAuthorized())
+// app.use('/rest/basket/:id/order', insecurity.isAuthorized())
 /* Challenge evaluation before epilogue takes over */
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
 /* Captcha verification before epilogue takes over */

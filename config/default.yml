@@ -2,7 +2,7 @@ server:
   port: 3000
 application:
   domain: juice-sh.op
-  name: 'OWASP Juice Shop'
+  name: 'Best Resturants In SG'
   logo: JuiceShop_Logo.png
   favicon: favicon_v2.ico
   numberOfRandomFakeUsers: 100
@@ -34,10 +34,10 @@ application:
     acknowledgements: '/#/score-board'
 products:
   -
-    name: 'Apple Juice (1000ml)'
-    price: 1.99
-    description: 'The all-time classic.'
-    image: apple_juice.jpg
+    name: 'Baked potato recipes'
+    price: 18.99
+    description: 'Perfect your spud technique then pile our filling ideas high.'
+    image: baked-chilli-jacket-potatoes.jpg
     reviews: # Options 'author': admin, jim, bender, ciso, support, morty, mc.safesearch
       - { text: 'One of my favorites!', author: admin }
   -
@@ -202,13 +202,6 @@ products:
     price: 19.1
     image: stickersheet_se.png
     deletedDate: '2017-09-20'
-  -
-    name: 'Pwning OWASP Juice Shop'
-    description: '<em>The official Companion Guide</em> by Björn Kimminich available <a href="https://leanpub.com/juice-shop">for free on LeanPub</a> and <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/">readable online on GitBook</a>!'
-    price: 5.99
-    image: cover_small.jpg
-    reviews:
-      - { text: 'Even more interesting than watching Interdimensional Cable!', author: morty }
   -
     name: 'Melon Bike (Comeback-Product 2018 Edition)'
     description: 'The wheels of this bicycle are made from real water melons. You might not want to ride it up/down the curb too hard.'

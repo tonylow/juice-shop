@@ -1,11 +1,12 @@
 angular.module('juiceShop').factory('BasketService', ['$http', '$q', function ($http, $q) {
   'use strict'
 
-  var host = '/api/BasketItems'
-
+//  var host = '/api/BasketItems'
+	var host = 'http://tonylow_sg-eval-test.apigee.net/rest/basket/'
   function find (id) {
     var basket = $q.defer()
-    $http.get('/rest/basket/' + id).then(function (response) {
+  //  $http.get('/rest/basket/' + id).then(function (response) {
+       $http.get(host + id).then(function (response) {
       basket.resolve(response.data.data)
     }).catch(function (response) {
       basket.reject(response.data)
@@ -55,7 +56,8 @@ angular.module('juiceShop').factory('BasketService', ['$http', '$q', function ($
 
   function checkout (id) {
     var orderConfirmationUrl = $q.defer()
-    $http.post('/rest/basket/' + id + '/checkout').then(function (response) {
+  //  $http.post('/rest/basket/' + id + '/checkout').then(function (response) {
+    $http.post(host + id + '/checkout').then(function (response) {
       orderConfirmationUrl.resolve(response.data.orderConfirmation)
     }).catch(function (response) {
       orderConfirmationUrl.reject(response.data)
@@ -65,7 +67,8 @@ angular.module('juiceShop').factory('BasketService', ['$http', '$q', function ($
 
   function applyCoupon (id, coupon) {
     var discount = $q.defer()
-    $http.put('/rest/basket/' + id + '/coupon/' + coupon).then(function (response) {
+ //   $http.put('/rest/basket/' + id + '/coupon/' + coupon).then(function (response) {
+      $http.put(host + id + '/coupon/' + coupon).then(function (response) {
       discount.resolve(response.data.discount)
     }).catch(function (response) {
       discount.reject(response.data)
